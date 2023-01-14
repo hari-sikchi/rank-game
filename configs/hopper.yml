@@ -1,0 +1,44 @@
+obj: maxentirl-sigmoid-validation 
+IS: false
+seed: 0
+cuda: 1
+exp_name: dump 
+rl: sac
+env:
+  env_name: HopperFH-v0
+  T: 1000
+  state_indices: all
+irl:
+  epochs: 10
+  regularization: exp-n1
+  training_trajs: 10
+  n_itrs: 2000
+  save_interval: 100
+  eval_episodes: 20
+  expert_episodes: 1
+  resample_episodes: 10
+sac:
+  k: 1
+  epochs: 1 #5
+  log_step_interval: 5000
+  update_every: 1
+  random_explore_episodes: 1
+  update_num: 1
+  batch_size: 100
+  lr: 1e-3
+  alpha: 0.2 # decreased from 0.2
+  automatic_alpha_tuning: false
+  buffer_size: 1000000
+  num_test_episodes: 10
+  reinitialize: false
+reward:
+  type: vanilla
+  use_bn: false
+  residual: false
+  hid_act: relu
+  hidden_sizes: [64,64]
+  clamp_magnitude: 10
+  lr: 1e-3
+  weight_decay: 1e-2
+  gradient_step: 1
+  momentum: 0.9
