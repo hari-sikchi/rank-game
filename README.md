@@ -1,12 +1,12 @@
 
 # A Ranking Game for Imitation Learning
-Accepted in Transactions of Machine Learning Research (TMLR) 2023. 
+<p align="center"> Accepted in Transactions of Machine Learning Research (TMLR) 2023. </p>
 
 <p align="center"> Harshit Sikchi, &nbsp; Akanksha Saran,&nbsp; Wonjoon Goo, &nbsp; Scott Niekum </p>
 
 <p align="center">
-   <a href="https://arxiv.org/abs/2202.03481">Paper</a> , &nbsp; <a href="https://hari-sikchi.github.io/rank-game/">Blog Post</a>
-   <img src='images/rank_game_overview.png' width="600"/><br>
+   <a href="https://arxiv.org/abs/2202.03481">Paper</a> , &nbsp; <a href="https://hari-sikchi.github.io/rank-game/">Blog Post</a>      
+   <br><br><img src='images/rank_game_overview.png' width="400"/><br>
 </p>
 
 
