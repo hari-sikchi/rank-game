@@ -102,7 +102,7 @@ if __name__ == "__main__":
     logger_kwargs={'output_dir':log_folder, 'exp_name':exp_id}
     logger = EpochLogger(**logger_kwargs)
     print(f"Logging to directory: {log_folder}")
-    os.system(f'cp rank_game.py {log_folder}')
+    os.system(f'cp rank_game_lfo.py {log_folder}')
     os.system(f'cp reward_agent/ranking_losses.py {log_folder}')
     with open(os.path.join(logger.output_dir, 'variant.json'), 'w') as f:
         json.dump(v, f, indent=2, sort_keys=True)
@@ -180,14 +180,13 @@ if __name__ == "__main__":
         loss = 0
         for _ in range(v['reward']['gradient_step']):
             if v['obj'] == 'rank-pal-auto':
-                loss,_ = rank_pal_auto(v['obj'], samples, expert_samples, reward_func,reward_optimizer, device, regularization=v['irl']['regularization'],reward_bound=args.reward_bound,epochs=v['irl']['epochs'],max_iterations=args.max_reward_iterations)
+                loss = rank_pal_auto(v['obj'], samples, expert_samples, reward_func,reward_optimizer, device, regularization=v['irl']['regularization'],reward_bound=args.reward_bound,epochs=v['irl']['epochs'],max_iterations=args.max_reward_iterations)
             elif v['obj'] == 'rank-ral-auto':
-                incorrect_ordering_ratio, loss = rank_ral_auto(v['obj'], past_samples, expert_samples, reward_func,reward_optimizer, device, regularization=v['irl']['regularization'],epochs=v['irl']['epochs'],max_iterations=args.max_reward_iterations)
-            # elif v['obj'] == 'contrastive-maxentirl-sigmoid-validation':
-            #     incorrect_ordering_ratio, loss = contrastive_maxentirl_sigmoid_loss_validation(v['obj'], past_samples, expert_samples, reward_func,reward_optimizer, device, regularization=v['irl']['regularization'],epochs=v['irl']['epochs'])
-            
+                loss = rank_ral_auto(v['obj'], past_samples, expert_samples, reward_func,reward_optimizer, device, regularization=v['irl']['regularization'],epochs=v['irl']['epochs'],max_iterations=args.max_reward_iterations)
+            else:
+                raise NotImplementedError
+                
         # evaluating the learned reward
-
         real_return_det = try_evaluate(itr, "Running", sac_info)
         if real_return_det > max_real_return_det:
             max_real_return_det = real_return_det
@@ -195,14 +194,7 @@ if __name__ == "__main__":
             torch.save(sac_agent.ac.state_dict(), logger.output_dir+f"/best_policy.pkl")
 
 
-        if incorrect_ordering_ratio is not None:
-            logger.log_tabular("IncorrectOrderingRatio", incorrect_ordering_ratio)
-        else:
-            logger.log_tabular("IncorrectOrderingRatio", -1)
-        if identity_firing_ratio is not None:
-            logger.log_tabular("IdentityFiringRatio", identity_firing_ratio)
-        else:
-            logger.log_tabular("IdentityFiringRatio", -1)
+
         logger.log_tabular("Time Elasped", time.time()-start_time)
         logger.log_tabular("Iteration", itr)
         logger.log_tabular("Ranking Loss", loss)
@@ -210,9 +202,4 @@ if __name__ == "__main__":
         if v['sac']['automatic_alpha_tuning']:
             logger.log_tabular("alpha", sac_agent.alpha.item())
         
-        # if v['irl']['save_interval'] > 0 and (itr % v['irl']['save_interval'] == 0 or itr == v['irl']['n_itrs']-1):
-        #     # import ipdb;ipdb.set_trace()
-        #     torch.save(reward_func.state_dict(), logger.output_dir+f"/reward_model_{itr}.pkl")
-        #     torch.save(sac_agent.ac.state_dict(), logger.output_dir+f"/policy_{itr}.pkl")
-
         logger.dump_tabular()

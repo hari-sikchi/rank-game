@@ -116,7 +116,7 @@ def rank_pal_auto(div: str, agent_samples, expert_samples, reward_func, reward_o
             break
         
 
-    return 0, loss_val.item() 
+    return  loss_val.item() 
 
 
 
@@ -181,6 +181,6 @@ def rank_ral_auto(div: str, cum_agent_samples, expert_samples, reward_func, rewa
     
     torch.cuda.empty_cache()
 
-    return 0, loss_val.item() 
+    return  loss_val.item() 
 
 
