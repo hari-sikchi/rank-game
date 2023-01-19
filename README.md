@@ -15,13 +15,13 @@
 If you find this code useful, please reference in your paper:
 ```
 @article{
-anonymous2022a,
+sikchi2022a,
 title={A Ranking Game for Imitation Learning},
-author={Anonymous},
-journal={Submitted to Transactions on Machine Learning Research},
+author={Harshit Sikchi and Akanksha Saran and Wonjoon Goo and Scott Niekum},
+journal={Transactions on Machine Learning Research},
 year={2022},
 url={https://openreview.net/forum?id=d3rHk4VAf0},
-note={Under review}
+note={}
 }
 ```
 
