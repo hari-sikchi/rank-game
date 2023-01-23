@@ -62,8 +62,6 @@ The following command will reproduce the results in our paper without changing t
 
 ```
 python rank_game_lfo.py --config=<configs/env_name.yml> --seed=<seed>  --exp_name=<experiment name> --obj=<rank-pal-auto/rank-ral-auto> --regularization=${4} --expert_episodes=${5}
-python train_loop_sac.py --env=<env_name> --policy=LOOP_SAC_ARC --start_timesteps=<initial exploration steps> --exp_name=<location_to_logs> 
 ```
-Environments wrappers with their termination condition can be found under `envs/`
 
 Note that as indicated in the paper, training the reward function until the cross-validation loss saturates also works well but takes longer to train. Hence, our default configs train the reward function for iterations that scale linearly with the preference dataset size. 
