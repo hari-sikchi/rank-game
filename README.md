@@ -1,5 +1,9 @@
 
 # A Ranking Game for Imitation Learning
+
+## SOTA algorithms for learning from demonstration + (optionally) learning from preferences
+
+
 <p align="center"> Accepted in Transactions of Machine Learning Research (TMLR) 2023. </p>
 
 <p align="center"> Harshit Sikchi, &nbsp; Akanksha Saran,&nbsp; Wonjoon Goo, &nbsp; Scott Niekum </p>
